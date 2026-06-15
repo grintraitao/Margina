@@ -1,0 +1,9 @@
+{
+  // Cấu hình Cloudflare Worker (Static Assets) cho site tĩnh Astro.
+  // Workers Builds chạy `npm run build` rồi deploy thư mục dist/ làm assets.
+  "name": "margina",
+  "compatibility_date": "2026-06-15",
+  "assets": {
+    "directory": "./dist"
+  }
+}
