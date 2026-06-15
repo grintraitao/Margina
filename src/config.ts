@@ -7,8 +7,9 @@ export const SITE = {
   // Mô tả mặc định cho SEO khi trang không có mô tả riêng.
   description:
     "Bản dịch tiếng Việt các bài luận, blog về công nghệ, crypto, UX và kinh doanh. Đọc-trước-tiên, không quảng cáo.",
-  // TODO: đổi thành domain thật khi deploy (dùng cho sitemap, RSS, OG, canonical).
-  url: "https://example.com",
+  // Domain dùng cho sitemap, RSS, OG, canonical.
+  // Mặc định là subdomain Cloudflare Pages; đổi nếu tên project khác hoặc dùng domain riêng.
+  url: "https://margina.pages.dev",
   // Người vận hành site (tuỳ chọn). Để trống nếu không muốn hiển thị.
   curator: "",
   locale: "vi",
