@@ -72,9 +72,6 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? "https://example.com");
             t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
           }
           document.documentElement.setAttribute("data-theme", t);
-          if (localStorage.getItem("width") === "wide") {
-            document.documentElement.setAttribute("data-width", "wide");
-          }
         } catch (e) {}
       })();
     </script>
@@ -121,10 +118,6 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? "https://example.com");
         const root = document.documentElement;
         const dark = root.getAttribute("data-theme") === "dark";
         qa("[data-theme-toggle]").forEach((b) => b.setAttribute("aria-pressed", String(dark)));
-        const cur = root.getAttribute("data-width") === "wide" ? "wide" : "";
-        qa("[data-width-set]").forEach((b) =>
-          b.setAttribute("aria-pressed", String((b.getAttribute("data-width-set") || "") === cur)),
-        );
         if ((navigator as any).share) qa("[data-share]").forEach((b) => ((b as HTMLElement).hidden = false));
       }
 
@@ -224,19 +217,13 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? "https://example.com");
           const el = e.target as Element;
           if (!(el instanceof Element)) return;
           const t = el.closest(
-            "[data-theme-toggle],[data-width-set],[data-backtotop],[data-copy],[data-share]",
+            "[data-theme-toggle],[data-backtotop],[data-copy],[data-share]",
           ) as HTMLElement | null;
           if (!t) return;
           if (t.matches("[data-theme-toggle]")) {
             const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
             root.setAttribute("data-theme", next);
             try { localStorage.setItem("theme", next); } catch (e) {}
-            syncControls();
-          } else if (t.matches("[data-width-set]")) {
-            const val = t.getAttribute("data-width-set") || "";
-            if (val === "wide") root.setAttribute("data-width", "wide");
-            else root.removeAttribute("data-width");
-            try { localStorage.setItem("width", val || "normal"); } catch (e) {}
             syncControls();
           } else if (t.matches("[data-backtotop]")) {
             window.scrollTo({ top: 0, behavior: "smooth" });

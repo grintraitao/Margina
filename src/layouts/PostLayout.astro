@@ -5,7 +5,6 @@ import { Image } from "astro:assets";
 import BaseLayout from "./BaseLayout.astro";
 import ReadingProgress from "../components/ReadingProgress.astro";
 import TableOfContents from "../components/TableOfContents.astro";
-import WidthToggle from "../components/WidthToggle.astro";
 import ShareButton from "../components/ShareButton.astro";
 import Attribution from "../components/Attribution.astro";
 import RelatedPosts from "../components/RelatedPosts.astro";
@@ -70,7 +69,6 @@ const ogImage = d.hero ? d.hero.src.src : undefined;
               </span>
             )
           }
-          <WidthToggle />
         </div>
       </header>
 

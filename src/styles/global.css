@@ -8,10 +8,8 @@
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
     "Apple Color Emoji", sans-serif;
 
-  /* Hệ độ rộng: cột chữ đọc thoải mái + các dải breakout rộng hơn cho media. */
-  --measure: 760px; /* cột chữ liền mạch */
-  --mid: 860px; /* callout, trích dẫn */
-  --wide: 1000px; /* hình, hero, code, bảng */
+  /* Bề rộng cột chữ của bài viết. */
+  --measure: 900px;
   --content-width: var(--measure); /* alias cho các trang khác */
 
   /* Màu nhấn mặc định (mỗi bài ghi đè qua inline style --accent). */
@@ -52,12 +50,6 @@
   --accent-link: color-mix(in srgb, var(--accent) 62%, var(--text));
 
   color-scheme: dark;
-}
-
-/* Chế độ đọc rộng (người đọc tự chọn qua nút Vừa/Rộng). */
-:root[data-width="wide"] {
-  --measure: 900px;
-  --mid: 960px;
 }
 
 /* ----- Reset nhẹ ----- */
@@ -975,42 +967,6 @@ a:hover {
 }
 
 /* =========================================================================
-   Nút chỉnh bề rộng (trong byline)
-   ========================================================================= */
-.width-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-left: auto;
-  text-transform: none;
-  letter-spacing: 0;
-}
-.width-toggle .wt-label {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-}
-.width-toggle button {
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  text-transform: none;
-  letter-spacing: 0;
-  padding: 3px 9px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text-muted);
-  cursor: pointer;
-  border-radius: 6px;
-}
-.width-toggle button[aria-pressed="true"] {
-  color: #fff;
-  background: var(--accent);
-  border-color: var(--accent);
-}
-:root[data-theme="dark"] .width-toggle button[aria-pressed="true"] {
-  color: var(--bg);
-}
-
-/* =========================================================================
    Nút lên đầu trang
    ========================================================================= */
 .back-to-top {
@@ -1086,13 +1042,6 @@ a:hover {
   }
   .toc-mobile {
     display: block;
-  }
-}
-
-@media (max-width: 980px) {
-  /* Cột chữ đã chiếm gần hết bề ngang, nút chỉnh bề rộng không còn tác dụng. */
-  .width-toggle {
-    display: none;
   }
 }
 
