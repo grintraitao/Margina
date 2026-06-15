@@ -520,17 +520,18 @@ a:hover {
    Bố cục trang bài
    ========================================================================= */
 .post-shell {
-  max-width: 1260px;
+  --pad: clamp(20px, 4vw, 44px);
+  --col: calc(var(--measure) + 2 * var(--pad));
   margin: 0 auto;
   padding: 28px 16px 0;
   display: grid;
-  grid-template-columns: 250px minmax(0, 1fr);
+  grid-template-columns: 250px minmax(0, var(--col));
+  justify-content: center;
   column-gap: 40px;
 }
 /* Bài không có mục lục: một cột, căn giữa. */
 .post-shell.no-toc {
-  grid-template-columns: minmax(0, var(--wide));
-  max-width: var(--wide);
+  grid-template-columns: minmax(0, var(--col));
 }
 .post-card {
   grid-column: 2;
@@ -538,17 +539,7 @@ a:hover {
   border: 1px solid var(--border);
   border-radius: 16px;
   box-shadow: var(--shadow);
-  padding: 52px clamp(20px, 4vw, 48px);
-}
-/* Khối chữ ở đầu/cuối bài giữ ở bề rộng cột chữ, căn giữa trong thẻ rộng. */
-.post-header,
-.toc-mobile,
-.post-actions,
-.attribution,
-.post-tags,
-.related {
-  max-width: var(--measure);
-  margin-inline: auto;
+  padding: 52px var(--pad);
 }
 .post-shell.no-toc .post-card {
   grid-column: 1;
@@ -685,8 +676,7 @@ a:hover {
 }
 
 .hero-figure {
-  width: min(var(--wide), 100%);
-  margin: 0 auto 2.4rem;
+  margin: 0 0 2.4rem;
 }
 .hero-figure img {
   width: 100%;
@@ -709,13 +699,6 @@ a:hover {
   font-size: 1.1875rem; /* ~19px */
   line-height: 1.77;
   color: var(--text-soft);
-  /* Content-grid: chữ ở cột giữa (--measure), media/callout breakout rộng hơn. */
-  display: grid;
-  grid-template-columns: 1fr min(var(--measure), 100%) 1fr;
-}
-.prose > * {
-  grid-column: 2;
-  min-width: 0;
 }
 .prose > * + * {
   margin-top: 1.35em;
@@ -867,21 +850,6 @@ a:hover {
   color: var(--text-muted);
 }
 
-/* ----- Breakout: media rộng tới --wide, callout/quote tới --mid ----- */
-.prose > .callout,
-.prose > blockquote,
-.prose > .pquote {
-  grid-column: 1 / -1;
-  width: min(var(--mid), 100%);
-  margin-inline: auto;
-}
-.prose > .figure,
-.prose > pre,
-.prose > .table-wrap {
-  grid-column: 1 / -1;
-  width: min(var(--wide), 100%);
-  margin-inline: auto;
-}
 
 /* ----- Footnote (GFM) ----- */
 .prose .footnotes {
@@ -1110,7 +1078,7 @@ a:hover {
 @media (max-width: 1200px) {
   .post-shell {
     display: block;
-    max-width: var(--wide);
+    max-width: var(--col);
     padding-top: 20px;
   }
   .post-aside {
