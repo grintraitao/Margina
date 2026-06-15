@@ -1,0 +1,29 @@
+---
+interface Props {
+  currentPage: number;
+  lastPage: number;
+  prevUrl?: string;
+  nextUrl?: string;
+}
+const { currentPage, lastPage, prevUrl, nextUrl } = Astro.props;
+---
+
+{
+  lastPage > 1 && (
+    <nav class="pagination" aria-label="Phân trang">
+      {prevUrl ? (
+        <a href={prevUrl}>← Mới hơn</a>
+      ) : (
+        <span class="disabled">← Mới hơn</span>
+      )}
+      <span class="page-info">
+        Trang {currentPage} / {lastPage}
+      </span>
+      {nextUrl ? (
+        <a href={nextUrl}>Cũ hơn →</a>
+      ) : (
+        <span class="disabled">Cũ hơn →</span>
+      )}
+    </nav>
+  )
+}

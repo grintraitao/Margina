@@ -1,0 +1,304 @@
+---
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import { SITE } from "../config";
+import ThemeToggle from "../components/ThemeToggle.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  type?: "website" | "article";
+  article?: {
+    publishedTime?: string;
+    author?: string;
+    tags?: string[];
+  };
+}
+
+const {
+  title,
+  description = SITE.description,
+  ogImage = SITE.defaultOgImage,
+  type = "website",
+  article,
+} = Astro.props;
+
+const fullTitle = title ? `${title} · ${SITE.name}` : SITE.name;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://example.com");
+const ogImageUrl = new URL(ogImage, Astro.site ?? "https://example.com");
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <link rel="canonical" href={canonical} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="vi_VN" />
+    {article?.publishedTime && (
+      <meta property="article:published_time" content={article.publishedTime} />
+    )}
+    {article?.author && <meta property="article:author" content={article.author} />}
+    {article?.tags?.map((t) => <meta property="article:tag" content={t} />)}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <ClientRouter />
+
+    <!-- Đặt theme + bề rộng trước khi vẽ để không nháy -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t !== "light" && t !== "dark") {
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          document.documentElement.setAttribute("data-theme", t);
+          if (localStorage.getItem("width") === "wide") {
+            document.documentElement.setAttribute("data-width", "wide");
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Tới nội dung</a>
+    <header class="site-header" transition:persist>
+      <a class="brand" href="/">{SITE.name}</a>
+      <nav>
+        <a href="/luu-tru">Lưu trữ</a>
+        <ThemeToggle />
+      </nav>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        {SITE.name} là nơi đăng các bản dịch tiếng Việt từ những bài luận và blog tiếng Anh.
+        Mỗi bài đều dẫn nguồn về bản gốc; đây là bản dịch có dẫn nguồn, không mạo nhận là nguyên tác.
+      </p>
+    </footer>
+
+    <button id="back-to-top" data-backtotop class="back-to-top" aria-label="Lên đầu trang" title="Lên đầu trang">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7"></path>
+      </svg>
+    </button>
+
+    <script>
+      // ---- Script trung tâm: tương thích View Transitions ----
+      const w = window as any;
+
+      function qa(sel: string): Element[] {
+        return Array.from(document.querySelectorAll(sel));
+      }
+
+      let tocObserver: IntersectionObserver | null = null;
+
+      function syncControls() {
+        const root = document.documentElement;
+        const dark = root.getAttribute("data-theme") === "dark";
+        qa("[data-theme-toggle]").forEach((b) => b.setAttribute("aria-pressed", String(dark)));
+        const cur = root.getAttribute("data-width") === "wide" ? "wide" : "";
+        qa("[data-width-set]").forEach((b) =>
+          b.setAttribute("aria-pressed", String((b.getAttribute("data-width-set") || "") === cur)),
+        );
+        if ((navigator as any).share) qa("[data-share]").forEach((b) => ((b as HTMLElement).hidden = false));
+      }
+
+      function updateProgress() {
+        const bar = document.getElementById("reading-progress");
+        if (!bar) return;
+        const el = document.documentElement;
+        const max = el.scrollHeight - el.clientHeight;
+        bar.style.width = (max > 0 ? (el.scrollTop / max) * 100 : 0) + "%";
+      }
+
+      function updateBackToTop() {
+        const btn = document.getElementById("back-to-top");
+        if (btn) btn.classList.toggle("show", window.scrollY > 700);
+      }
+
+      function setupToc() {
+        if (tocObserver) tocObserver.disconnect();
+        const links = qa(".toc a");
+        if (!links.length) return;
+        const byId = new Map<string, Element[]>();
+        for (const a of links) {
+          const id = decodeURIComponent((a.getAttribute("href") || "").slice(1));
+          if (!byId.has(id)) byId.set(id, []);
+          byId.get(id)!.push(a);
+        }
+        const heads = qa(".prose h2, .prose h3");
+        tocObserver = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                for (const a of links) a.classList.remove("active");
+                for (const a of byId.get((e.target as HTMLElement).id) || []) a.classList.add("active");
+              }
+            }
+          },
+          { rootMargin: "0px 0px -75% 0px", threshold: 0 },
+        );
+        for (const h of heads) tocObserver.observe(h);
+      }
+
+      // ---- Popover footnote ----
+      function getPopover(): HTMLElement {
+        let p = document.getElementById("fn-pop");
+        if (!p) {
+          p = document.createElement("div");
+          p.id = "fn-pop";
+          p.className = "footnote-pop";
+          p.setAttribute("role", "tooltip");
+          document.body.appendChild(p);
+        }
+        return p;
+      }
+      function showFootnote(a: HTMLAnchorElement) {
+        const id = decodeURIComponent((a.getAttribute("href") || "").slice(1));
+        const li = document.getElementById(id);
+        if (!li) return;
+        const clone = li.cloneNode(true) as HTMLElement;
+        clone.querySelectorAll("[data-footnote-backref]").forEach((x) => x.remove());
+        const pop = getPopover();
+        pop.innerHTML = clone.innerHTML;
+        pop.classList.add("show");
+        const r = a.getBoundingClientRect();
+        const pw = Math.min(360, window.innerWidth - 24);
+        pop.style.width = pw + "px";
+        let left = r.left + r.width / 2 - pw / 2;
+        left = Math.max(12, Math.min(left, window.innerWidth - pw - 12));
+        pop.style.left = left + "px";
+        const ph = pop.offsetHeight;
+        let top = r.top - ph - 10;
+        if (top < 8) top = r.bottom + 10;
+        pop.style.top = top + "px";
+      }
+      function hideFootnote() {
+        const p = document.getElementById("fn-pop");
+        if (p) p.classList.remove("show");
+      }
+      function isFnRef(el: Element | null): HTMLAnchorElement | null {
+        if (!el) return null;
+        const a = el.closest(".prose sup a, .prose a[data-footnote-ref]");
+        return a as HTMLAnchorElement | null;
+      }
+
+      function initPage() {
+        syncControls();
+        setupToc();
+        updateProgress();
+        updateBackToTop();
+        hideFootnote();
+      }
+
+      if (!w.__siteBound) {
+        w.__siteBound = true;
+        const root = document.documentElement;
+
+        document.addEventListener("click", (e) => {
+          const el = e.target as Element;
+          if (!(el instanceof Element)) return;
+          const t = el.closest(
+            "[data-theme-toggle],[data-width-set],[data-backtotop],[data-copy],[data-share]",
+          ) as HTMLElement | null;
+          if (!t) return;
+          if (t.matches("[data-theme-toggle]")) {
+            const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            root.setAttribute("data-theme", next);
+            try { localStorage.setItem("theme", next); } catch (e) {}
+            syncControls();
+          } else if (t.matches("[data-width-set]")) {
+            const val = t.getAttribute("data-width-set") || "";
+            if (val === "wide") root.setAttribute("data-width", "wide");
+            else root.removeAttribute("data-width");
+            try { localStorage.setItem("width", val || "normal"); } catch (e) {}
+            syncControls();
+          } else if (t.matches("[data-backtotop]")) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else if (t.matches("[data-copy]")) {
+            const label = t.querySelector("[data-copy-label]");
+            const done = () => {
+              if (label) {
+                const o = label.textContent;
+                label.textContent = "Đã sao chép!";
+                setTimeout(() => (label.textContent = o), 1600);
+              }
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText)
+              navigator.clipboard.writeText(location.href).then(done, done);
+            else done();
+          } else if (t.matches("[data-share]")) {
+            if ((navigator as any).share)
+              (navigator as any).share({ title: document.title, url: location.href }).catch(() => {});
+          }
+        });
+
+        document.addEventListener("keydown", (e) => {
+          const tag = (e.target as HTMLElement)?.tagName || "";
+          if (e.key === "/" && !/^(INPUT|TEXTAREA|SELECT)$/.test(tag)) {
+            const s = document.querySelector("#search, [data-search-input]") as HTMLElement | null;
+            if (s) { e.preventDefault(); s.focus(); }
+          }
+        });
+
+        document.addEventListener("mouseover", (e) => {
+          const a = isFnRef(e.target as Element);
+          if (a) showFootnote(a);
+        });
+        document.addEventListener("mouseout", (e) => {
+          if (isFnRef(e.target as Element)) hideFootnote();
+        });
+        document.addEventListener("focusin", (e) => {
+          const a = isFnRef(e.target as Element);
+          if (a) showFootnote(a);
+        });
+        document.addEventListener("focusout", () => hideFootnote());
+
+        let ticking = false;
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(() => {
+                updateProgress();
+                updateBackToTop();
+                ticking = false;
+              });
+            }
+          },
+          { passive: true },
+        );
+        window.addEventListener("resize", updateProgress);
+        document.addEventListener("astro:page-load", initPage);
+      }
+
+      initPage();
+    </script>
+  </body>
+</html>

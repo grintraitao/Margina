@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostRow from "../../components/PostRow.astro";
+import { tagSlug } from "../../utils/tags";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  const map = new Map<string, { tag: string; posts: CollectionEntry<"posts">[] }>();
+  for (const p of posts) {
+    for (const t of p.data.tags) {
+      const slug = tagSlug(t);
+      if (!map.has(slug)) map.set(slug, { tag: t, posts: [] });
+      map.get(slug)!.posts.push(p);
+    }
+  }
+  return Array.from(map.entries()).map(([slug, entry]) => ({
+    params: { tag: slug },
+    props: {
+      tag: entry.tag,
+      posts: entry.posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+    },
+  }));
+}
+
+interface Props {
+  tag: string;
+  posts: CollectionEntry<"posts">[];
+}
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`Chủ đề: ${tag}`} description={`Các bản dịch thuộc chủ đề ${tag}.`}>
+  <div class="home">
+    <div class="home-intro">
+      <p class="back-link"><a href="/">← Tất cả bài</a></p>
+      <h1>Chủ đề: {tag}</h1>
+      <p>{posts.length} bài</p>
+    </div>
+    <ul class="post-rows">
+      {posts.map((post) => <PostRow post={post} />)}
+    </ul>
+  </div>
+</BaseLayout>

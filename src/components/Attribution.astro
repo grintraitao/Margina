@@ -1,0 +1,49 @@
+---
+// Khối ghi nguồn cuối bài. LUÔN hiển thị. Chỗ nào thiếu dữ liệu dùng placeholder
+// (yêu cầu của site: vẫn có chỗ cho link nguồn và tên tác giả dù để trống).
+interface Props {
+  author?: string;
+  originalTitle?: string;
+  sourceUrl?: string;
+  sourceName?: string;
+  year?: number;
+}
+
+const { author, originalTitle, sourceUrl, sourceName, year } = Astro.props;
+
+let host = "";
+if (sourceUrl) {
+  try {
+    host = new URL(sourceUrl).hostname.replace(/^www\./, "");
+  } catch (e) {
+    host = sourceUrl;
+  }
+}
+const sourceLabel = sourceName || host || sourceUrl;
+---
+
+<aside class="attribution" aria-label="Nguồn bản dịch">
+  <p class="lead">Bản dịch tiếng Việt.</p>
+  <p>
+    Tác giả gốc:{" "}
+    {author ? <span>{author}</span> : <span class="placeholder">(chưa rõ)</span>}
+    {originalTitle && (
+      <>
+        {" · "}Nguyên tác: “{originalTitle}”
+      </>
+    )}
+    {year && <>{` · ${year}`}</>}
+  </p>
+  <p>
+    Nguồn:{" "}
+    {
+      sourceUrl ? (
+        <a href={sourceUrl} target="_blank" rel="noopener noreferrer">
+          {sourceLabel}
+        </a>
+      ) : (
+        <span class="placeholder">(đang cập nhật)</span>
+      )
+    }
+  </p>
+</aside>

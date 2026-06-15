@@ -1,0 +1,26 @@
+---
+import type { MarkdownHeading } from "astro";
+import { tocHeadings } from "../utils/toc";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+const items = tocHeadings(headings);
+---
+
+{
+  items.length > 0 && (
+    <nav class="toc" aria-label="Mục lục">
+      <p class="toc-title">Mục lục</p>
+      <ul>
+        {items.map((h) => (
+          <li class={`lvl-${h.depth}`}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}

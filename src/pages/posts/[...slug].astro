@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  const sharedCount = (a: CollectionEntry<"posts">, b: CollectionEntry<"posts">) =>
+    a.data.tags.filter((t) => b.data.tags.includes(t)).length;
+
+  return posts.map((post) => {
+    const related = posts
+      .filter((p) => p.id !== post.id && sharedCount(p, post) > 0)
+      .sort((a, b) => {
+        const ds = sharedCount(b, post) - sharedCount(a, post);
+        return ds !== 0 ? ds : b.data.date.valueOf() - a.data.date.valueOf();
+      })
+      .slice(0, 3);
+    return { params: { slug: post.id }, props: { post, related } };
+  });
+}
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  related: CollectionEntry<"posts">[];
+}
+const { post, related } = Astro.props;
+const { Content, headings } = await render(post);
+---
+
+<PostLayout post={post} headings={headings} related={related}>
+  <Content />
+</PostLayout>

@@ -1,0 +1,150 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FeaturedCard from "../components/FeaturedCard.astro";
+import PostRow from "../components/PostRow.astro";
+import Pagination from "../components/Pagination.astro";
+import { SITE } from "../config";
+import { tagSlug } from "../utils/tags";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
+  return paginate(posts, { pageSize: 10 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+
+// Thẻ lấy từ toàn bộ bài (không chỉ trang hiện tại).
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+const tagSet = new Set<string>();
+for (const p of allPosts) for (const t of p.data.tags) tagSet.add(t);
+const tags = Array.from(tagSet).sort((a, b) => a.localeCompare(b, "vi"));
+
+const isFirst = page.currentPage === 1;
+const featured = isFirst ? page.data[0] : undefined;
+const rows = isFirst ? page.data.slice(1) : page.data;
+---
+
+<BaseLayout>
+  <div class="home">
+    <div class="home-intro">
+      <h1>{SITE.name}</h1>
+      {SITE.tagline && <p>{SITE.tagline}</p>}
+    </div>
+
+    <div class="home-controls">
+      <div class="search-wrap">
+        <label class="sr-only" for="search">Tìm bài</label>
+        <input
+          id="search"
+          data-search-input
+          type="search"
+          placeholder="Tìm theo tiêu đề, tác giả, nội dung..."
+          autocomplete="off"
+          aria-expanded="false"
+          aria-controls="search-results"
+        />
+        <div class="search-results" id="search-results" role="listbox" hidden></div>
+      </div>
+      {
+        tags.length > 0 && (
+          <nav class="tag-bar" aria-label="Lọc theo thẻ">
+            <a href="/" class="active">Tất cả</a>
+            {tags.map((t) => (
+              <a href={`/tags/${tagSlug(t)}`}>{t}</a>
+            ))}
+          </nav>
+        )
+      }
+    </div>
+
+    {featured && <FeaturedCard post={featured} />}
+
+    {
+      rows.length > 0 && (
+        <ul class="post-rows">
+          {rows.map((post) => (
+            <PostRow post={post} />
+          ))}
+        </ul>
+      )
+    }
+
+    {
+      page.data.length === 0 && (
+        <p class="empty-msg">Chưa có bài nào. Thêm một file .md vào src/content/posts.</p>
+      )
+    }
+
+    <Pagination
+      currentPage={page.currentPage}
+      lastPage={page.lastPage}
+      prevUrl={page.url.prev}
+      nextUrl={page.url.next}
+    />
+  </div>
+</BaseLayout>
+
+<script>
+  // Tìm kiếm phía client qua chỉ mục JSON (chạy được cả ở dev và production).
+  let cache: any[] | null = null;
+  async function loadIndex() {
+    if (!cache) {
+      const res = await fetch("/search-index.json");
+      cache = await res.json();
+    }
+    return cache;
+  }
+  function esc(s: string) {
+    return s.replace(/[&<>"]/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c] as string,
+    );
+  }
+  function initSearch() {
+    const input = document.getElementById("search") as HTMLInputElement | null;
+    const box = document.getElementById("search-results");
+    if (!input || !box || input.dataset.bound) return;
+    input.dataset.bound = "1";
+
+    input.addEventListener("input", async () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) {
+        box.hidden = true;
+        box.innerHTML = "";
+        input.setAttribute("aria-expanded", "false");
+        return;
+      }
+      const data = await loadIndex();
+      const res = data.filter((p) => p.text.includes(q)).slice(0, 8);
+      box.innerHTML = res.length
+        ? res
+            .map(
+              (p) =>
+                `<a role="option" href="${p.url}"><strong>${esc(p.title)}</strong><span>${esc(p.meta)}</span></a>`,
+            )
+            .join("")
+        : '<div class="no-res">Không tìm thấy bài nào khớp.</div>';
+      box.hidden = false;
+      input.setAttribute("aria-expanded", "true");
+    });
+
+    document.addEventListener("click", (e) => {
+      const el = e.target as Element;
+      if (el instanceof Element && !el.closest(".search-wrap")) {
+        box.hidden = true;
+        input.setAttribute("aria-expanded", "false");
+      }
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        box.hidden = true;
+        input.blur();
+      }
+    });
+  }
+  initSearch();
+  document.addEventListener("astro:page-load", initSearch);
+</script>

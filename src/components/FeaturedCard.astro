@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import { formatDate, isoDate } from "../utils/date";
+import { estimateReadingTime } from "../utils/reading";
+import Rating from "./Rating.astro";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+const { post } = Astro.props;
+const d = post.data;
+const reading = d.readingTime ?? estimateReadingTime(post.body);
+---
+
+<a class="featured" href={`/posts/${post.id}`} style={`--accent:${d.accent}`}>
+  {
+    d.hero && (
+      <div class="featured-img">
+        <Image src={d.hero.src} alt={d.hero.alt} widths={[480, 760]} sizes="(max-width: 760px) 100vw, 760px" />
+      </div>
+    )
+  }
+  <div class="featured-body">
+    <span class="featured-kicker">Mới nhất</span>
+    <h2>{d.title}</h2>
+    {d.subtitle && <p class="sub">{d.subtitle}</p>}
+    <div class="meta">
+      {d.author && <span class="who">{d.author}</span>}
+      {d.author && <span class="dot">·</span>}
+      <span>{reading}</span>
+      <span class="dot">·</span>
+      <time datetime={isoDate(d.date)}>{formatDate(d.date)}</time>
+      {d.rating != null && <span class="dot">·</span>}
+      {d.rating != null && <Rating value={d.rating} showNumber />}
+    </div>
+    {
+      d.tags.length > 0 && (
+        <div class="chips">
+          {d.tags.map((t) => (
+            <span class="chip">{t}</span>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</a>

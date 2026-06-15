@@ -1,0 +1,81 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate, isoDate } from "../utils/date";
+
+interface Props {
+  posts: CollectionEntry<"posts">[];
+}
+const { posts } = Astro.props;
+---
+
+<nav class="related" aria-label="Bài liên quan">
+  <h2 class="related-title">Bài liên quan</h2>
+  <ul>
+    {
+      posts.map((p) => (
+        <li style={`--accent:${p.data.accent}`}>
+          <a href={`/posts/${p.id}`}>
+            <span class="r-title">{p.data.title}</span>
+            <span class="r-meta">
+              {p.data.author && <>{p.data.author} · </>}
+              <time datetime={isoDate(p.data.date)}>{formatDate(p.data.date)}</time>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .related {
+    margin-top: 2.6em;
+    padding-top: 1.5em;
+    border-top: 1px solid var(--hairline);
+  }
+  .related-title {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin: 0 0 0.9em;
+  }
+  .related ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .related a {
+    display: block;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    text-decoration: none;
+    color: inherit;
+    background: var(--surface);
+    transition: border-color 0.15s;
+  }
+  .related a:hover {
+    border-color: var(--accent);
+  }
+  .r-title {
+    display: block;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.35;
+    color: var(--text);
+  }
+  .r-meta {
+    display: block;
+    margin-top: 3px;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+</style>

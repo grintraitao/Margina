@@ -1,0 +1,56 @@
+---
+// Điểm đánh giá chủ quan của người dịch (thang 5, hỗ trợ số lẻ như 4.5).
+// Sao đầy được "tô" theo phần trăm value/5, nên thể hiện được nửa sao.
+interface Props {
+  value: number;
+  size?: number;
+  showNumber?: boolean;
+}
+const { value, size = 15, showNumber = false } = Astro.props;
+const pct = Math.max(0, Math.min(100, (value / 5) * 100));
+---
+
+<span
+  class="rating"
+  title={`Đánh giá chủ quan của người dịch: ${value}/5`}
+  aria-label={`Đánh giá chủ quan ${value} trên 5`}
+>
+  <span class="rating-stars" style={`--pct:${pct}%;--star:${size}px`} aria-hidden="true">
+    <span class="rating-empty">★★★★★</span>
+    <span class="rating-full">★★★★★</span>
+  </span>
+  {showNumber && <span class="rating-num">{value.toFixed(1).replace(".", ",")}</span>}
+</span>
+
+<style>
+  .rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    vertical-align: middle;
+  }
+  .rating-stars {
+    position: relative;
+    display: inline-block;
+    font-size: var(--star);
+    line-height: 1;
+    letter-spacing: 1px;
+    font-family: Arial, sans-serif;
+  }
+  .rating-empty {
+    color: color-mix(in srgb, var(--accent) 26%, transparent);
+  }
+  .rating-full {
+    position: absolute;
+    inset: 0;
+    width: var(--pct);
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--accent);
+  }
+  .rating-num {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+</style>

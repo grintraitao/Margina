@@ -1,0 +1,147 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { MarkdownHeading } from "astro";
+import { Image } from "astro:assets";
+import BaseLayout from "./BaseLayout.astro";
+import ReadingProgress from "../components/ReadingProgress.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+import WidthToggle from "../components/WidthToggle.astro";
+import ShareButton from "../components/ShareButton.astro";
+import Attribution from "../components/Attribution.astro";
+import RelatedPosts from "../components/RelatedPosts.astro";
+import Rating from "../components/Rating.astro";
+import { formatDate, isoDate } from "../utils/date";
+import { estimateReadingTime } from "../utils/reading";
+import { tagSlug } from "../utils/tags";
+import { tocHeadings } from "../utils/toc";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  headings: MarkdownHeading[];
+  related?: CollectionEntry<"posts">[];
+}
+
+const { post, headings, related = [] } = Astro.props;
+const d = post.data;
+const reading = d.readingTime ?? estimateReadingTime(post.body);
+const hasToc = tocHeadings(headings).length > 0;
+const ogImage = d.hero ? d.hero.src.src : undefined;
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.subtitle ?? d.title}
+  type="article"
+  ogImage={ogImage}
+  article={{
+    publishedTime: isoDate(d.date),
+    author: d.author,
+    tags: d.tags,
+  }}
+>
+  <ReadingProgress />
+
+  <article class:list={["post-shell", { "no-toc": !hasToc }]} style={`--accent:${d.accent}`}>
+    {
+      hasToc && (
+        <div class="post-aside">
+          <TableOfContents headings={headings} />
+        </div>
+      )
+    }
+
+    <div class="post-card">
+      <header class="post-header">
+        <h1>{d.title}</h1>
+        {d.subtitle && <p class="post-subtitle">{d.subtitle}</p>}
+        <div class="byline">
+          {d.author && (
+            <a class="who" href={`/tac-gia/${tagSlug(d.author)}`}>{d.author}</a>
+          )}
+          {d.author && <span class="dot">·</span>}
+          <span>{reading}</span>
+          <span class="dot">·</span>
+          <time datetime={isoDate(d.date)}>{formatDate(d.date)}</time>
+          {
+            d.rating != null && (
+              <span class="byline-rating">
+                <span class="dot">·</span>
+                Đánh giá: <Rating value={d.rating} showNumber />
+              </span>
+            )
+          }
+          <WidthToggle />
+        </div>
+      </header>
+
+      {
+        d.hero && (
+          <figure class="hero-figure">
+            <Image src={d.hero.src} alt={d.hero.alt} widths={[480, 760, 1000]} sizes="(max-width: 1000px) 100vw, 1000px" />
+            {d.hero.caption && <figcaption>{d.hero.caption}</figcaption>}
+          </figure>
+        )
+      }
+
+      {
+        hasToc && (
+          <details class="toc-mobile">
+            <summary>Mục lục</summary>
+            <TableOfContents headings={headings} />
+          </details>
+        )
+      }
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      <ShareButton />
+
+      <Attribution
+        author={d.author}
+        originalTitle={d.originalTitle}
+        sourceUrl={d.sourceUrl}
+        sourceName={d.sourceName}
+        year={d.year ?? d.date.getFullYear()}
+      />
+
+      {
+        d.tags.length > 0 && (
+          <nav class="post-tags" aria-label="Chủ đề">
+            <span>Chủ đề:</span>
+            {d.tags.map((t) => (
+              <a href={`/tags/${tagSlug(t)}`}>{t}</a>
+            ))}
+          </nav>
+        )
+      }
+
+      {related.length > 0 && <RelatedPosts posts={related} />}
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 1.6em;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+  .post-tags a {
+    padding: 3px 11px;
+    border-radius: 999px;
+    background: var(--accent-tint);
+    color: var(--accent-link);
+    border: 1px solid var(--accent-line);
+    text-decoration: none;
+  }
+  .post-tags a:hover {
+    border-color: var(--accent);
+  }
+</style>

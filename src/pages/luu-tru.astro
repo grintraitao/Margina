@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostRow from "../components/PostRow.astro";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const byYear = new Map<number, CollectionEntry<"posts">[]>();
+for (const p of posts) {
+  const y = p.data.date.getFullYear();
+  if (!byYear.has(y)) byYear.set(y, []);
+  byYear.get(y)!.push(p);
+}
+const years = Array.from(byYear.keys()).sort((a, b) => b - a);
+---
+
+<BaseLayout title="Lưu trữ" description="Toàn bộ bài dịch, sắp xếp theo năm.">
+  <div class="home">
+    <div class="home-intro">
+      <p class="back-link"><a href="/">← Trang chủ</a></p>
+      <h1>Lưu trữ</h1>
+      <p>{posts.length} bài</p>
+    </div>
+    {
+      years.map((y) => (
+        <section class="archive-year">
+          <h2>{y}</h2>
+          <ul class="post-rows">
+            {byYear.get(y)!.map((post) => (
+              <PostRow post={post} />
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>
