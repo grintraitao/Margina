@@ -20,6 +20,8 @@ const posts = defineCollection({
       // Ghi đè thời gian đọc. Nếu trống, tự tính từ độ dài bài.
       readingTime: z.string().optional(),
       tags: z.array(z.string()).default([]),
+      // true nếu là bản tóm lược/diễn giải (đổi câu ghi nguồn cho đúng, không phải "dịch").
+      summary: z.boolean().default(false),
       // Điểm đánh giá chủ quan của người dịch, thang 5 (cho phép số lẻ, vd. 4.5).
       rating: z.number().min(0).max(5).optional(),
       // Màu nhấn riêng của bài (callout / quote / link / gạch tiêu đề).

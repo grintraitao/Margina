@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import { SITE } from "../config";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import WalletMenu from "../components/WalletMenu.tsx";
 
 interface Props {
   title?: string;
@@ -27,6 +28,10 @@ const {
 const fullTitle = title ? `${title} · ${SITE.name}` : SITE.name;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://example.com");
 const ogImageUrl = new URL(ogImage, Astro.site ?? "https://example.com");
+
+// Chỉ gắn ví khi đã cấu hình App ID lúc build (local .env có; Cloudflare chưa đặt thì ẩn ví,
+// không tải JS Privy lên bản live).
+const showWallet = !!import.meta.env.PUBLIC_PRIVY_APP_ID;
 ---
 
 <!doctype html>
@@ -82,6 +87,7 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? "https://example.com");
       <a class="brand" href="/">{SITE.name}</a>
       <nav>
         <a href="/luu-tru">Lưu trữ</a>
+        {showWallet && <WalletMenu client:only="react" transition:persist="wallet" />}
         <ThemeToggle />
       </nav>
     </header>

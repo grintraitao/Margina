@@ -7,9 +7,11 @@ interface Props {
   sourceUrl?: string;
   sourceName?: string;
   year?: number;
+  summary?: boolean;
 }
 
-const { author, originalTitle, sourceUrl, sourceName, year } = Astro.props;
+const { author, originalTitle, sourceUrl, sourceName, year, summary } = Astro.props;
+const lead = summary ? "Bản tóm lược và diễn giải tiếng Việt." : "Bản dịch tiếng Việt.";
 
 let host = "";
 if (sourceUrl) {
@@ -23,7 +25,7 @@ const sourceLabel = sourceName || host || sourceUrl;
 ---
 
 <aside class="attribution" aria-label="Nguồn bản dịch">
-  <p class="lead">Bản dịch tiếng Việt.</p>
+  <p class="lead">{lead}</p>
   <p>
     Tác giả gốc:{" "}
     {author ? <span>{author}</span> : <span class="placeholder">(chưa rõ)</span>}
