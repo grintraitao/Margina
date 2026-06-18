@@ -13,19 +13,12 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
-    "@astrojs/react": "^5.0.7",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.4.0",
-    "@privy-io/react-auth": "^3.31.0",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
     "astro": "^5.13.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "remark-directive": "^4.0.0",
-    "unist-util-visit": "^5.0.0",
-    "viem": "^2.52.0"
+    "unist-util-visit": "^5.0.0"
   }
 }

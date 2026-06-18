@@ -9,14 +9,12 @@ import { remarkCallout } from "./src/plugins/remark-callout.mjs";
 import { remarkFigure } from "./src/plugins/remark-figure.mjs";
 import { SITE } from "./src/config.ts";
 
-import react from "@astrojs/react";
-
 // https://astro.build
 export default defineConfig({
   site: SITE.url,
   trailingSlash: "ignore",
   prefetch: { prefetchAll: true, defaultStrategy: "viewport" },
-  integrations: [mdx(), sitemap(), react()],
+  integrations: [mdx(), sitemap()],
   markdown: {
     gfm: true, // footnote [^1], bảng, ...
     remarkPlugins: [remarkDirective, remarkCallout, remarkFigure],
