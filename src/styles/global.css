@@ -1425,3 +1425,274 @@ a:hover {
     max-width: none;
   }
 }
+
+/* =========================================================================
+   Ví prototype (Portfolio/Send/Swap/Lịch sử/Cài đặt)
+   ========================================================================= */
+.wallet-pop.ph.wproto {
+  width: min(360px, calc(100vw - 24px));
+}
+.wp-proto-badge {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-link);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+  padding: 3px 8px;
+  border-radius: 999px;
+  flex: none;
+}
+.wp-notice {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  text-align: center;
+  color: var(--accent-link);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+  border-radius: 9px;
+  padding: 7px 10px;
+  margin: 10px 0 0;
+}
+
+/* token row -> nút bấm */
+.ph-token {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+.ph-token:hover {
+  background: color-mix(in srgb, var(--text) 9%, transparent);
+}
+.ph-token-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.ph-token-ch {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+}
+.ph-token-ch.up {
+  color: #1a9d5a;
+}
+.ph-token-ch.down {
+  color: #d23f3f;
+}
+
+/* panes con */
+.wp-pane-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 14px;
+}
+.wp-pane-head h2,
+.wp-pane-title {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+}
+.wp-pane-title {
+  margin: 8px 0 14px;
+}
+.wp-back {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--text-soft);
+  cursor: pointer;
+}
+.wp-back:hover {
+  color: var(--text);
+}
+.wp-back svg {
+  width: 18px;
+  height: 18px;
+}
+.wp-qr {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 4px;
+  display: grid;
+  place-items: center;
+  background: var(--code-bg);
+  border: 1px dashed var(--accent-line);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+}
+
+/* swap */
+.wp-swap {
+  display: grid;
+  gap: 10px;
+}
+.wp-swap-box {
+  background: color-mix(in srgb, var(--text) 5%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.wp-swap-label {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.wp-swap-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 5px;
+}
+.wp-swap-row select {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  padding: 7px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+.wp-swap-row input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  text-align: right;
+  border: 0;
+  background: none;
+  color: var(--text);
+}
+.wp-swap-arrow {
+  display: grid;
+  place-items: center;
+  color: var(--accent-link);
+}
+.wp-swap-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+.wp-swap-rate {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 2px 0;
+}
+
+/* lịch sử */
+.wp-history {
+  display: grid;
+  gap: 6px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.wp-hrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--text) 5%, transparent);
+}
+.wp-hleft {
+  display: flex;
+  flex-direction: column;
+}
+.wp-hleft strong {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.wp-hleft span {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+.wp-hright {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+}
+.wp-hright .up {
+  color: #1a9d5a;
+}
+.wp-hright .down {
+  color: #d23f3f;
+}
+.wp-husd {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* cài đặt */
+.wp-settings {
+  display: grid;
+  gap: 6px;
+}
+.wp-srow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.wp-srow:hover {
+  border-color: var(--accent-line);
+}
+.wp-sval {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+.wp-srow.danger {
+  color: #d23f3f;
+}
+
+/* thanh điều hướng dưới */
+.wp-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  margin: 14px -16px -16px;
+  padding: 8px 6px 6px;
+}
+.wp-navbtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  padding: 6px 2px;
+  border-radius: 8px;
+}
+.wp-navbtn:hover {
+  color: var(--text);
+}
+.wp-navbtn.active {
+  color: var(--accent-link);
+}
