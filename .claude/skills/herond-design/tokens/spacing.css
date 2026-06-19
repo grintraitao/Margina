@@ -1,0 +1,30 @@
+/* ============================================================
+   Herond — Spacing & radius tokens
+   Base unit: 4px
+   ============================================================ */
+:root {
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Corner radii — soft, rounded product language */
+  --radius-xs: 6px;
+  --radius-sm: 8px;     /* buttons, inputs */
+  --radius-md: 10px;    /* small cards, list rows */
+  --radius-lg: 14px;    /* cards */
+  --radius-xl: 20px;    /* large surfaces, modals */
+  --radius-pill: 999px; /* chips, pills, network selectors */
+
+  /* Layout */
+  --container-max: 1060px;
+  --sidebar-width: 256px;
+}

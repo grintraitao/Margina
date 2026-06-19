@@ -1,0 +1,30 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Brand Aurora" subtitle="Signature gradient: blue → cyan → violet → pink" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--bg-page); }
+  .wrap { padding: 18px; }
+  .bar { height: 76px; border-radius: var(--radius-lg); background: var(--aurora-flow); box-shadow: var(--shadow-md); }
+  .row { display: flex; gap: 8px; margin-top: 10px; }
+  .chip { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+  .sw { height: 26px; border-radius: var(--radius-xs); }
+  .lbl { font-size: 10px; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.2px; }
+  .hex { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="bar"></div>
+    <div class="row">
+      <div class="chip"><div class="sw" style="background:#3373F6"></div><span class="lbl">Blue Sky</span><span class="hex">#3373F6</span></div>
+      <div class="chip"><div class="sw" style="background:#00b3ED"></div><span class="lbl">Ozone</span><span class="hex">#00b3ED</span></div>
+      <div class="chip"><div class="sw" style="background:#6b33fa"></div><span class="lbl">Violet</span><span class="hex">#6b33fa</span></div>
+      <div class="chip"><div class="sw" style="background:#ff4070"></div><span class="lbl">Pink</span><span class="hex">#ff4070</span></div>
+      <div class="chip"><div class="sw" style="background:#00CCC0"></div><span class="lbl">Teal</span><span class="hex">#00CCC0</span></div>
+    </div>
+  </div>
+</body>
+</html>

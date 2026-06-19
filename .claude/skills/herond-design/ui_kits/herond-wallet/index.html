@@ -1,0 +1,38 @@
+<!-- @dsCard group="Herond Wallet" viewport="1280x800" name="Herond Wallet — Sidebar" subtitle="In-browser keyless wallet: balance, actions, token list" -->
+<!-- @startingPoint section="Herond Wallet" subtitle="In-browser wallet sidebar panel" viewport="1280x820" -->
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herond Wallet</title>
+<link rel="stylesheet" href="../../styles.css">
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: var(--font-sans); min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(ellipse 70% 60% at 25% 15%, rgba(51,115,246,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 80% 85%, rgba(107,51,250,0.16) 0%, transparent 55%),
+      #06101f;
+    padding: 32px;
+  }
+  @keyframes hwSlide { from { transform: translateY(100%); } to { transform: translateY(0); } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="data.js"></script>
+<script type="text/babel" src="WalletPanel.jsx"></script>
+<script type="text/babel">
+  ReactDOM.createRoot(document.getElementById('root')).render(<window.WalletPanel />);
+</script>
+</body>
+</html>

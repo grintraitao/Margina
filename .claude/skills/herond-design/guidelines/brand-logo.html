@@ -1,0 +1,25 @@
+<!-- @dsCard group="Brand" viewport="700x180" name="Logo — Kingfisher glyph" subtitle="Aurora-gradient mark, on light and dark" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--bg-page); }
+  .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: 180px; }
+  .pane { display: flex; align-items: center; justify-content: center; gap: 16px; }
+  .light { background: #fff; }
+  .dark { background: var(--herond-cosmic); }
+  img { width: 64px; height: 64px; }
+  .word { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+  .light .word { color: var(--herond-cosmic); }
+  .dark .word { color: #fff; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="pane light"><img src="../assets/logo.svg" alt="Herond"><span class="word">Herond</span></div>
+    <div class="pane dark"><img src="../assets/logo.svg" alt="Herond"><span class="word">Herond</span></div>
+  </div>
+</body>
+</html>

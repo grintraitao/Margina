@@ -1,0 +1,26 @@
+<!-- @dsCard group="Type" viewport="700x180" name="Body, labels & mono" subtitle="Body copy, overline eyebrow, captions, monospace" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--bg-page); color: var(--text-primary); }
+  .wrap { padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+  .line { display: flex; align-items: baseline; gap: 14px; }
+  .meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); width: 96px; flex: none; }
+  .over { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--color-primary); }
+  .tag { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 3px; color: var(--text-tertiary); }
+  .body { font-size: 14px; line-height: 1.5; color: var(--text-secondary); max-width: 460px; }
+  .mono { font-family: var(--font-mono); font-size: 13px; color: var(--text-primary); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="line"><span class="meta">Overline 11</span><span class="over">Popular Articles</span></div>
+    <div class="line"><span class="meta">Tagline 11</span><span class="tag">Defend · Discover · Decentralize</span></div>
+    <div class="line"><span class="meta">Body 14 / 1.5</span><span class="body">Herond generates a secure key with MPC-TSS technology. No seed phrase needed.</span></div>
+    <div class="line"><span class="meta">Mono 13</span><span class="mono">0x71C…3f9E · 21,091.91 USD</span></div>
+  </div>
+</body>
+</html>

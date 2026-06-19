@@ -1,0 +1,43 @@
+<!-- @dsCard group="Components" viewport="700x230" name="Help — CategoryCard" subtitle="Homepage category cards with accent + hover arrow" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--bg-page); }
+  .wrap { padding: 22px 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { CategoryCard } = window.HerondDesignSystem_043536;
+    const Ic = ({ n, c }) => {
+      const ref = React.useRef(null);
+      React.useEffect(() => { if (ref.current) { ref.current.innerHTML=''; const e=document.createElement('i'); e.setAttribute('data-lucide',n); ref.current.appendChild(e); window.lucide && window.lucide.createIcons({ attrs:{ width:24, height:24, 'stroke-width':1.8 } }); } });
+      return <span ref={ref} style={{ display:'inline-flex' }} />;
+    };
+    const cats = [
+      { n:'Desktop Browser', i:'monitor', a:'#3373F6', c:12, d:'Installation, features & browsing guides' },
+      { n:'Herond Wallet', i:'wallet', a:'#6b33fa', c:10, d:'Create, manage & secure your wallet' },
+      { n:'Herond Shield', i:'shield-check', a:'#ff4070', c:11, d:'Privacy, ad-blocking & security' },
+    ];
+    function Demo() {
+      return (
+        <div className="wrap">
+          {cats.map((c) => (
+            <CategoryCard key={c.n} name={c.n} count={c.c} accent={c.a} description={c.d} icon={<Ic n={c.i} />} href="#" />
+          ))}
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+  </script>
+</body>
+</html>

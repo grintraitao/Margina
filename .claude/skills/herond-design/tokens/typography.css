@@ -1,0 +1,56 @@
+/* ============================================================
+   Herond — Typography tokens
+   Display & UI: Plus Jakarta Sans   ·   Mono: JetBrains Mono
+   ============================================================ */
+:root {
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Type scale (px) */
+  --text-display: 42px;   /* hero */
+  --text-h1: 32px;
+  --text-h2: 24px;
+  --text-h3: 20px;
+  --text-h4: 16px;
+  --text-body-lg: 16px;
+  --text-body: 14px;
+  --text-sm: 13px;
+  --text-xs: 12px;
+  --text-overline: 11px;  /* uppercase eyebrow / section header */
+
+  /* Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* Line heights */
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  /* Letter spacing */
+  --tracking-display: -1px;   /* large headings, tightened */
+  --tracking-tight: -0.4px;
+  --tracking-normal: 0;
+  --tracking-overline: 2px;   /* uppercase eyebrows */
+  --tracking-tagline: 3px;    /* "Defend · Discover · Decentralize" */
+}
+
+/* Optional helper classes (consumers may use tokens directly) */
+.herond-display {
+  font-family: var(--font-sans);
+  font-size: var(--text-display);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+}
+.herond-overline {
+  font-family: var(--font-sans);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+}

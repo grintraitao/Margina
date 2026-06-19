@@ -1,0 +1,38 @@
+<!-- @dsCard group="Components" viewport="700x200" name="Navigation — Tabs" subtitle="Underline tab bar with sliding indicator" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--bg-page); }
+  .wrap { padding: 24px; display: flex; flex-direction: column; gap: 26px; }
+  .panel { background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: 0 18px; box-shadow: var(--shadow-sm); }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { Tabs } = window.HerondDesignSystem_043536;
+    function Demo() {
+      const [a, setA] = React.useState('tokens');
+      const [b, setB] = React.useState('general');
+      return (
+        <div className="wrap">
+          <div className="panel">
+            <Tabs value={a} onChange={setA} tabs={[{id:'tokens',label:'Tokens'},{id:'nfts',label:'NFTs',count:3},{id:'activity',label:'Activity'}]} />
+          </div>
+          <div className="panel">
+            <Tabs value={b} onChange={setB} size="sm" tabs={[{id:'general',label:'General'},{id:'privacy',label:'Privacy'},{id:'shield',label:'Shield'},{id:'about',label:'About'}]} />
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+  </script>
+</body>
+</html>

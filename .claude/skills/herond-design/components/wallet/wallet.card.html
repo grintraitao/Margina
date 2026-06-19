@@ -1,0 +1,41 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Wallet — NetworkPill & TokenRow" subtitle="Header selectors and portfolio asset rows" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--bg-page); }
+  .wrap { padding: 22px 24px; display: flex; flex-direction: column; gap: 16px; }
+  .row { display: flex; gap: 12px; }
+  .list { background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: 6px; box-shadow: var(--shadow-sm); }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { NetworkPill, TokenRow } = window.HerondDesignSystem_043536;
+    function Demo() {
+      return (
+        <div className="wrap">
+          <div className="row">
+            <NetworkPill label="All Networks" dots={['#627EEA','#9945FF','#00b3ED']} />
+            <NetworkPill label="All accounts" dots={['#ff4070','#00CCC0']} active />
+          </div>
+          <div className="list">
+            <TokenRow symbol="SOL" name="Solana" network="SOL on Solana Mainnet Beta" amount="36.27 SOL" fiat="$4,260.66" change={1.4} onClick={()=>{}} />
+            <TokenRow symbol="ETH" name="Ethereum" network="ETH on Ethereum Mainnet" amount="2.98 ETH" fiat="$10,983.00" change={-2.1} onClick={()=>{}} />
+            <TokenRow symbol="BTC" name="Bitcoin" network="BTC on Bitcoin" amount="0.0404 BTC" fiat="$4,102.76" change={0.7} onClick={()=>{}} />
+            <TokenRow symbol="USDT" name="Tether" network="USDT on Ethereum" amount="833.64 USDT" fiat="$833.64" change={0.0} onClick={()=>{}} />
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+  </script>
+</body>
+</html>

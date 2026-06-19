@@ -1,0 +1,40 @@
+<!-- @dsCard group="Components" viewport="700x280" name="Forms — Input" subtitle="Text field: default, icon, password, error" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; font-family: var(--font-sans); background: var(--bg-page); }
+  .wrap { padding: 22px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { Input } = window.HerondDesignSystem_043536;
+    const Icon = ({ n }) => {
+      const ref = React.useRef(null);
+      React.useEffect(() => { if (ref.current) { ref.current.innerHTML=''; const e=document.createElement('i'); e.setAttribute('data-lucide',n); ref.current.appendChild(e); window.lucide && window.lucide.createIcons({ attrs:{ width:16, height:16 } }); } });
+      return <span ref={ref} style={{ display:'inline-flex' }} />;
+    };
+    function Demo() {
+      const [v, setV] = React.useState('');
+      return (
+        <div className="wrap">
+          <Input label="Search" leadingIcon={<Icon n="search" />} placeholder="Search the web" value={v} onChange={(e)=>setV(e.target.value)} />
+          <Input label="Email" placeholder="you@herond.org" />
+          <Input label="Password" type="password" placeholder="Enter your password" helper="At least 10 characters" />
+          <Input label="Amount" error="Insufficient balance" trailingSlot={<span style={{ fontSize:12, fontWeight:700, color:'var(--color-primary)' }}>MAX</span>} placeholder="0.00" />
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+  </script>
+</body>
+</html>

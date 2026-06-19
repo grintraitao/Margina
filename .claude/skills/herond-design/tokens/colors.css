@@ -1,0 +1,114 @@
+/* ============================================================
+   Herond — Color tokens
+   Aurora palette: deep blue → cyan → violet → pink
+   ============================================================ */
+:root {
+  /* ---- Brand primitives ---- */
+  --herond-blue-sky: #3373F6;   /* primary (light) */
+  --herond-ozone: #00b3ED;      /* primary (dark) / cyan */
+  --herond-violet: #6b33fa;     /* accent */
+  --herond-pink: #ff4070;       /* accent */
+  --herond-teal: #00CCC0;       /* accent */
+  --herond-midnight: #17234B;   /* dark surface */
+  --herond-cosmic: #0F1A35;     /* dark background */
+  --herond-abyss: #0a1228;      /* deepest dark (footer) */
+
+  /* Blue ramp (from primary) */
+  --blue-50:  #eef4fe;
+  --blue-100: #d8e5fd;
+  --blue-200: #b1cbfb;
+  --blue-300: #80a8f9;
+  --blue-400: #5a8ff8;
+  --blue-500: #3373F6;
+  --blue-600: #1b5fe0;
+  --blue-700: #1955d0;
+  --blue-800: #1446ab;
+  --blue-900: #143b86;
+
+  /* Neutral ramp */
+  --gray-0:   #ffffff;
+  --gray-25:  #fafafb;
+  --gray-50:  #F5F5F7;
+  --gray-100: #eceef1;
+  --gray-200: #dfe2e8;
+  --gray-300: #c5cad3;
+  --gray-400: #9aa1ad;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  /* Semantic status */
+  --color-success: #00CCC0;
+  --color-warning: #f5a623;
+  --color-danger:  #ff4070;
+  --color-info:    #00b3ED;
+  --color-up:      #16c784;   /* price up (green) */
+  --color-down:    #ff4070;   /* price down */
+
+  /* ---- Aurora gradients (brand signature) ---- */
+  --aurora-flow: linear-gradient(120deg, #3373F6 0%, #00b3ED 38%, #6b33fa 72%, #ff4070 100%); /* @kind color */
+  --aurora-cool: linear-gradient(120deg, #00b3ED 0%, #3373F6 55%, #6b33fa 100%); /* @kind color */
+  --aurora-glow:
+    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(51, 115, 246, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 70% 80%, rgba(107, 51, 250, 0.12) 0%, transparent 60%); /* @kind other */
+
+  /* ============================================================
+     SEMANTIC ALIASES — light theme (default)
+     ============================================================ */
+  --color-primary: var(--herond-blue-sky);
+  --color-primary-hover: var(--blue-600);
+  --color-primary-active: var(--blue-700);
+  --color-on-primary: #ffffff;
+
+  --bg-page: var(--gray-50);
+  --bg-elevated: #ffffff;
+  --surface-card: #ffffff;
+  --surface-sunken: var(--gray-50);
+  --surface-hover: var(--gray-50);
+
+  --text-primary: var(--herond-cosmic);
+  --text-secondary: var(--gray-600);
+  --text-tertiary: var(--gray-400);
+  --text-on-dark: rgba(255, 255, 255, 0.92);
+  --text-link: var(--herond-blue-sky);
+
+  --border-subtle: #e5e7eb;
+  --border-default: var(--gray-200);
+  --border-strong: var(--gray-300);
+  --border-focus: var(--herond-blue-sky);
+
+  --icon-default: var(--gray-500);
+  --icon-strong: var(--gray-700);
+}
+
+/* ============================================================
+   SEMANTIC ALIASES — dark theme (the product's native mode)
+   ============================================================ */
+[data-theme="dark"] {
+  --color-primary: var(--herond-ozone);
+  --color-primary-hover: #1ac1f0;
+  --color-primary-active: #0098c9;
+  --color-on-primary: #06121f;
+
+  --bg-page: var(--herond-cosmic);
+  --bg-elevated: var(--herond-midnight);
+  --surface-card: var(--herond-midnight);
+  --surface-sunken: #0c1530;
+  --surface-hover: #1c2d56;
+
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.62);
+  --text-tertiary: rgba(255, 255, 255, 0.38);
+  --text-on-dark: rgba(255, 255, 255, 0.92);
+  --text-link: var(--herond-ozone);
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --border-focus: var(--herond-ozone);
+
+  --icon-default: rgba(255, 255, 255, 0.55);
+  --icon-strong: rgba(255, 255, 255, 0.85);
+}
