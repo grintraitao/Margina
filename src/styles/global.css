@@ -1696,3 +1696,178 @@ a:hover {
 .wp-navbtn.active {
   color: var(--accent-link);
 }
+
+/* =========================================================================
+   Ví: nền tối tự thân (sang như Phantom), độc lập theme site
+   ========================================================================= */
+.wallet-pop.ph {
+  --surface: #1b1b22;
+  --bg: #121217;
+  --text: #f4f2ef;
+  --text-soft: #d4d1cb;
+  --text-muted: #8d8c95;
+  --border: rgba(255, 255, 255, 0.09);
+  --hairline: rgba(255, 255, 255, 0.12);
+  --code-bg: rgba(255, 255, 255, 0.06);
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  --accent: #e2641f;
+  --accent-link: #f6975a;
+  --accent-tint: color-mix(in srgb, #e2641f 22%, #1b1b22);
+  --accent-line: color-mix(in srgb, #e2641f 40%, transparent);
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, #20202a 0%, #1b1b22 38%);
+}
+
+/* Đầu popup */
+.ph-avatar,
+.wb-dot {
+  background: linear-gradient(135deg, #f6a04f, #e2641f);
+}
+.ph-acc-text strong {
+  font-size: 0.95rem;
+}
+
+/* Số dư lớn + pill % */
+.ph-balance {
+  padding: 22px 0 16px;
+}
+.ph-amount {
+  font-size: 2.4rem;
+  letter-spacing: -0.03em;
+}
+.ph-change {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+}
+.ph-change.up {
+  background: rgba(46, 204, 137, 0.16);
+  color: #3ad693;
+}
+.ph-change.down {
+  background: rgba(233, 75, 75, 0.16);
+  color: #ff6b6b;
+}
+
+/* Ô hành động */
+.ph-actions {
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.ph-tile {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 14px 4px;
+  gap: 7px;
+  transition: background 0.15s, transform 0.12s;
+}
+.ph-tile:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+.ph-tile span {
+  font-size: 0.76rem;
+  color: var(--text-soft);
+}
+
+/* Hàng token */
+.ph-token {
+  padding: 11px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  gap: 12px;
+}
+.ph-token:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.ph-token-ic {
+  width: 36px;
+  height: 36px;
+  color: #fff;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.ph-token-name strong {
+  font-size: 0.92rem;
+}
+.ph-token-ch {
+  margin-top: 2px;
+}
+.ph-token-ch.up {
+  color: #3ad693;
+}
+.ph-token-ch.down {
+  color: #ff6b6b;
+}
+
+/* Badge nguyên mẫu */
+.wp-proto-badge {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+}
+
+/* Khối nền phụ cho các phần bị trùng màu với popup */
+.wallet-pop.ph .wp-srow,
+.wallet-pop.ph .wp-back,
+.wallet-pop.ph .wp-swap-row select {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.wallet-pop.ph .wp-srow:hover,
+.wallet-pop.ph .wp-back:hover {
+  border-color: var(--accent-line);
+}
+
+/* Input trên nền tối */
+.wallet-pop.ph input,
+.wallet-pop.ph .ph-send select {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.wallet-pop.ph input::placeholder {
+  color: #6f6e77;
+}
+
+/* Nút chính cam, chữ trắng rõ */
+.wallet-pop.ph .ph-primary {
+  background: linear-gradient(135deg, #ef7a33, #e2641f);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(226, 100, 31, 0.35);
+}
+
+/* Thanh điều hướng dưới */
+.wp-nav {
+  margin: 16px -18px -18px;
+  padding: 10px 8px;
+  background: rgba(0, 0, 0, 0.22);
+  border-top-color: rgba(255, 255, 255, 0.08);
+  border-radius: 0 0 20px 20px;
+}
+.wp-navbtn.active {
+  color: var(--accent-link);
+}
+
+/* Pane con */
+.wp-pane-head h2,
+.wp-pane-title {
+  font-size: 1.2rem;
+}
+
+/* QR placeholder đẹp hơn */
+.wp-qr {
+  width: 132px;
+  height: 132px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+.ph-receive code,
+.wp-swap-box {
+  background: rgba(255, 255, 255, 0.04);
+}

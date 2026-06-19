@@ -6,12 +6,12 @@ import { PrivyProvider, usePrivy } from "@privy-io/react-auth";
 import { PRIVY_APP_ID, privyConfig } from "../lib/privyConfig";
 
 // ---- Dữ liệu giả cho nguyên mẫu ----
-type Tok = { sym: string; name: string; amount: number; price: number; change: number };
+type Tok = { sym: string; name: string; amount: number; price: number; change: number; color: string };
 const MOCK_TOKENS: Tok[] = [
-  { sym: "ETH", name: "Ethereum", amount: 0.842, price: 3120.5, change: 2.3 },
-  { sym: "USDC", name: "USD Coin", amount: 540, price: 1, change: 0 },
-  { sym: "ARB", name: "Arbitrum", amount: 320, price: 0.92, change: -1.4 },
-  { sym: "OP", name: "Optimism", amount: 75, price: 1.85, change: 4.1 },
+  { sym: "ETH", name: "Ethereum", amount: 0.842, price: 3120.5, change: 2.3, color: "#627eea" },
+  { sym: "USDC", name: "USD Coin", amount: 540, price: 1, change: 0, color: "#2775ca" },
+  { sym: "ARB", name: "Arbitrum", amount: 320, price: 0.92, change: -1.4, color: "#28a0f0" },
+  { sym: "OP", name: "Optimism", amount: 75, price: 1.85, change: 4.1, color: "#ff3b30" },
 ];
 const MOCK_HISTORY = [
   { kind: "Nhận", detail: "Từ 0x9a…1f", amount: "+0,50 ETH", usd: "+$1.560", up: true },
@@ -148,7 +148,7 @@ function Wallet() {
               <div className="ph-list">
                 {MOCK_TOKENS.map((t) => (
                   <button className="ph-token" key={t.sym} onClick={() => proto(`Chi tiết ${t.sym}: nguyên mẫu.`)}>
-                    <span className="ph-token-ic">{t.sym.slice(0, 1)}</span>
+                    <span className="ph-token-ic" style={{ background: t.color }}>{t.sym.slice(0, 1)}</span>
                     <div className="ph-token-name">
                       <strong>{t.name}</strong>
                       <span>{t.amount.toLocaleString("vi-VN")} {t.sym}</span>
