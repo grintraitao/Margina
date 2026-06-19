@@ -1,0 +1,62 @@
+<!-- @dsCard group="Help Center" viewport="1280x760" name="Help Center — Home" subtitle="Dark-first docs homepage: hero, categories, popular, footer" -->
+<!-- @startingPoint section="Help Center" subtitle="Full help-center homepage (dark-first)" viewport="1280x900" -->
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herond Help Center</title>
+<link rel="stylesheet" href="../../styles.css">
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); background: var(--bg-page); color: var(--text-primary); transition: background var(--duration-base); }
+  * { box-sizing: border-box; }
+  ::selection { background: color-mix(in srgb, var(--color-primary) 30%, transparent); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="data.js"></script>
+<script type="text/babel" src="Chrome.jsx"></script>
+<script type="text/babel" src="Pages.jsx"></script>
+<script type="text/babel">
+  const { useState, useEffect } = React;
+  function App() {
+    const [theme, setTheme] = useState('dark');
+    const [route, setRoute] = useState({ name: 'home' });
+    const [search, setSearch] = useState(false);
+
+    useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
+    useEffect(() => {
+      const onKey = (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); setSearch(true); }
+        if (e.key === 'Escape') setSearch(false);
+      };
+      window.addEventListener('keydown', onKey);
+      return () => window.removeEventListener('keydown', onKey);
+    }, []);
+
+    const goHome = () => { setRoute({ name: 'home' }); window.scrollTo(0, 0); };
+    const openArticle = (a) => { setRoute({ name: 'article', article: a }); window.scrollTo(0, 0); };
+    const openCategory = (c) => { setRoute({ name: 'article', article: { title: 'How to Create Your Wallet on Desktop', category: c.name } }); window.scrollTo(0, 0); };
+
+    return (
+      <React.Fragment>
+        <window.HCNavbar theme={theme} onToggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')} onSearch={() => setSearch(true)} onHome={goHome} />
+        {route.name === 'home'
+          ? <window.HCHome onOpenCategory={openCategory} onOpenArticle={openArticle} />
+          : <window.HCArticle article={route.article} onHome={goHome} />}
+        <window.HCFooter />
+        <window.HCSearch open={search} onClose={() => setSearch(false)} onOpenArticle={openArticle} />
+      </React.Fragment>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

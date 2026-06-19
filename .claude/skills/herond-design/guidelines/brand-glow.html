@@ -1,0 +1,32 @@
+<!-- @dsCard group="Brand" viewport="700x180" name="Aurora glow & glass" subtitle="Hero background glow, frosted glass, focus ring" -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; font-family: var(--font-sans); }
+  .stage { position: relative; height: 180px; background: var(--herond-cosmic); overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 18px; }
+  .glow { position: absolute; inset: 0; background: var(--aurora-glow); }
+  .glass {
+    position: relative; padding: 18px 22px; border-radius: var(--radius-lg);
+    background: rgba(255,255,255,0.08); backdrop-filter: var(--blur-glass);
+    -webkit-backdrop-filter: var(--blur-glass);
+    border: 1px solid rgba(255,255,255,0.12); color: #fff;
+  }
+  .glass .t { font-size: 13px; font-weight: 700; }
+  .glass .s { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+  .ring {
+    position: relative; width: 52px; height: 52px; border-radius: 14px;
+    background: var(--aurora-flow); box-shadow: var(--glow-ring);
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="glow"></div>
+    <div class="glass"><div class="t">Frosted glass</div><div class="s">backdrop-filter blur(18px)</div></div>
+    <div class="ring"></div>
+  </div>
+</body>
+</html>
