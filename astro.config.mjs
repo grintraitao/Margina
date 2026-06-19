@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import react from "@astrojs/react";
 import remarkDirective from "remark-directive";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -14,7 +15,7 @@ export default defineConfig({
   site: SITE.url,
   trailingSlash: "ignore",
   prefetch: { prefetchAll: true, defaultStrategy: "viewport" },
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap(), react()],
   markdown: {
     gfm: true, // footnote [^1], bảng, ...
     remarkPlugins: [remarkDirective, remarkCallout, remarkFigure],
