@@ -1425,3 +1425,49 @@ a:hover {
     max-width: none;
   }
 }
+
+/* =========================================================================
+   Bảng trong bài (GFM table)
+   ========================================================================= */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.7em 0;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.prose th,
+.prose td {
+  border: 1px solid var(--border);
+  padding: 8px 11px;
+  text-align: left;
+  vertical-align: top;
+}
+.prose thead th {
+  background: var(--accent-tint);
+  border-bottom: 2px solid var(--accent-line);
+  font-weight: 700;
+  color: var(--text);
+}
+.prose td {
+  color: var(--text-soft);
+}
+.prose tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--text) 3%, transparent);
+}
+.prose td:first-child,
+.prose th:first-child {
+  text-align: center;
+  color: var(--text-muted);
+  width: 38px;
+}
+@media (max-width: 640px) {
+  .prose table {
+    font-size: 0.8rem;
+  }
+  .prose th,
+  .prose td {
+    padding: 6px 8px;
+  }
+}
