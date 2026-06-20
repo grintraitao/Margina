@@ -75,3 +75,4 @@ Kiểm chứng nhanh trước khi push: `npx npm@10 ci && npm run build` phải 
 - **2026-06:** Thêm tính năng `rating` (điểm chủ quan) và `summary` (bản tóm lược).
 - **2026-06:** Học/dựng **ví Privy** đa giai đoạn (Sepolia → mainnet đa mạng → prototype) rồi tách sang nhánh `wallet-experiment`; cuối cùng thiết kế lại theo **Herond DS** và merge vào `main`. Gỡ 3 lỗi build Cloudflare (npm10 lock, rollup-linux optionalDeps, biến build). Commit App ID công khai để ví lên prod.
 - **2026-06:** Refactor: gỡ CSS ví cũ đã chết khỏi `global.css`; thêm DEVLOG; logo Marginalia riêng theo style aurora.
+- **2026-06:** Chữ ký aurora cho site (giữ nền giấy/serif/accent theo bài): vạch aurora 3px đỉnh trang, tên trang chủ tô gradient, accent chrome mặc định đổi sang Herond Blue Sky #3373f6 (sáng) / Ozone #00b3ed (tối). Bài viết vẫn giữ accent riêng.
