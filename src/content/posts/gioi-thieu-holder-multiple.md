@@ -85,7 +85,7 @@ Theo thời gian, mỗi giao thức đã dần lấn sân sang lãnh địa củ
 
 Sky đi đầu với Smart Burn Engine, một cơ chế buyback token tự động, cố định dựa trên quy tắc có sẵn. Kết hợp với cơ chế chia sẻ doanh thu (revenue share) cho token SKY, họ đã tạo ra thế đứng vững chắc trong trào lưu "revenue meta". Trái lại, Aave chọn hướng tiếp cận linh hoạt hơn: thực hiện buyback token AAVE theo kiểu chiến lược tùy nghi, như một phần của chiến lược quản lý treasury rộng lớn hơn của DAO.
 
-**Sky: Phân tích Holder Multiple (HM)**
+### Sky
 
 | # | Hạng mục | Giá trị | Ghi chú |
 |---|---|---|---|
@@ -102,7 +102,7 @@ Sky đi đầu với Smart Burn Engine, một cơ chế buyback token tự độ
 
 *Nguồn: DeFiLlama, Skyeco dashboard, tài liệu và diễn đàn governance của Sky.*
 
-**Aave: Phân tích Holder Multiple (HM)**
+### Aave
 
 | # | Hạng mục | Giá trị | Ghi chú |
 |---|---|---|---|
@@ -134,7 +134,7 @@ Hiển nhiên là Lighter đã "học hỏi" khá nhiều từ thiết kế toke
 
 Về cơ bản, cả hai dự án đều chia lại gần như toàn bộ doanh thu cho token holder: Hyperliquid hiện dùng 99% doanh thu để tài trợ cho các đợt buyback HYPE tự động, còn Lighter dùng 99,5% doanh thu sau LLP[^2] (Lighter Liquidity Pool, nơi thu phí thanh lý) để thực hiện buyback LIT theo thuật toán. Rất ấn tượng.
 
-**Hyperliquid: Phân tích Holder Multiple (HM)**
+### Hyperliquid
 
 | # | Hạng mục | Giá trị | Ghi chú |
 |---|---|---|---|
@@ -151,7 +151,7 @@ Về cơ bản, cả hai dự án đều chia lại gần như toàn bộ doanh 
 
 *Nguồn: DeFiLlama, website/tài liệu của Hyperliquid.*
 
-**Lighter: Phân tích Holder Multiple (HM)**
+### Lighter
 
 | # | Hạng mục | Giá trị | Ghi chú |
 |---|---|---|---|

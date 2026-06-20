@@ -1112,13 +1112,20 @@ a:hover {
   font-family: var(--font-sans);
   font-size: 0.9rem;
   line-height: 1.5;
+  font-variant-numeric: tabular-nums;
 }
 .prose th,
 .prose td {
   border: 1px solid var(--border);
-  padding: 8px 11px;
+  padding: 9px 12px;
   text-align: left;
   vertical-align: top;
+}
+/* Cột "Giá trị" (số liệu): căn phải, không xuống dòng để dễ dò theo hàng. */
+.prose td:nth-child(3),
+.prose th:nth-child(3) {
+  text-align: right;
+  white-space: nowrap;
 }
 .prose thead th {
   background: var(--accent-tint);
@@ -1137,6 +1144,17 @@ a:hover {
   text-align: center;
   color: var(--text-muted);
   width: 38px;
+}
+/* Dòng "Nguồn:" ngay sau bảng: chú thích nhỏ, mờ, sát bảng. */
+.prose table + p {
+  margin-top: 0.6em;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.prose table + p em {
+  font-style: normal;
 }
 @media (max-width: 640px) {
   .prose table {
