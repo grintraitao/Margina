@@ -12,8 +12,10 @@
   --measure: 900px;
   --content-width: var(--measure); /* alias cho các trang khác */
 
-  /* Màu nhấn mặc định (mỗi bài ghi đè qua inline style --accent). */
-  --accent: #5a4a86;
+  /* Màu nhấn mặc định cho chrome (trang chủ/thẻ...); mỗi BÀI ghi đè qua inline style --accent. */
+  --accent: #3373f6; /* Herond Blue Sky */
+  /* Chữ ký aurora (logo, vạch đỉnh trang, tên trang chủ). */
+  --aurora-flow: linear-gradient(120deg, #3373f6 0%, #00b3ed 38%, #6b33fa 72%, #ff4070 100%);
 
   /* Bảng màu sáng (mặc định). */
   --bg: #fafafa;
@@ -35,6 +37,7 @@
 }
 
 :root[data-theme="dark"] {
+  --accent: #00b3ed; /* Herond Ozone (primary tối) */
   --bg: #14130f;
   --surface: #1c1b16;
   --text: #ece8df;
@@ -121,6 +124,13 @@ a:hover {
   left: 0;
 }
 
+/* ----- Vạch aurora đỉnh trang (chữ ký thương hiệu) ----- */
+.aurora-bar {
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #3373f6, #00b3ed 34%, #6b33fa 68%, #ff4070);
+}
+
 /* =========================================================================
    Header / Footer site
    ========================================================================= */
@@ -200,6 +210,12 @@ a:hover {
   font-weight: 800;
   letter-spacing: -0.02em;
   margin: 0 0 8px;
+  /* Tên trang chủ tô chữ ký aurora (chỉ trang chrome, không phải tiêu đề bài). */
+  background: var(--aurora-flow);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
 }
 .home-intro p {
   margin: 0;
